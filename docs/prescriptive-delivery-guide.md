@@ -315,6 +315,7 @@ Revoke the GitHub token that Fabric stores for the Git connection when the works
 | `synapsesql` attribute missing on `DataFrameWriter` | The Warehouse connector is not loaded in this Python session | Use T-SQL over JDBC from the notebook, as the workshop does. |
 | MERGE fails with "cannot resolve <column>" | Target has a column the source does not | The notebook aligns columns. Rebuild the dimension with `nb_05` if it has drifted. |
 | Git connect returns `GitProviderResourceNotFound` | The folder in the repo does not exist | Create the folder in the repository, commit it, then connect. |
+| Deployment to Test fails with `CopyOverwriteResult.GenericError` on a warehouse | Repeat deployment of an existing warehouse | Deploy selectively (notebooks, pipelines, dataflows). `10-git-and-deployment.ps1` does this when Test already has lakehouses. Apply warehouse DDL with scripts. |
 | Capacity admin rejected: "principals must be existing" | Object ID used instead of a UPN | Use a UPN in the capacity's tenant. |
 | Azure SQL or storage creation blocked by policy | Tenant governance | Use Fabric-native sources and shortcuts, as the workshop does. |
 

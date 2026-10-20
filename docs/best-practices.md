@@ -102,6 +102,9 @@ Reference diagram: [diagrams/medallion-architecture.svg](../diagrams/medallion-a
 - **Deployment moves definitions, not data.** Lakehouses and warehouses deploy empty. Plan a data load in Test and
   Prod (for example run the migration or the Medallion pipeline after deployment). **Tested** (the lakehouses in Test
   were empty after deployment).
+- **Re-deploy code items, not warehouses.** A repeat deployment that includes an existing warehouse failed with
+  `CopyOverwriteResult.GenericError` in our tests, even with overwrite disabled. Selective deployment (notebooks,
+  pipelines, dataflows) succeeded. Apply warehouse DDL to each environment with a script. **Tested**.
 - **Use deployment rules** for values that differ by environment (connection strings, lakehouse IDs, parameters).
 - **Keep scripts idempotent** and store them in the repository. Treat the repository as the record of how the
   environment is built. **Tested** (every deploy script reruns safely).

@@ -106,21 +106,44 @@ $testStage = $stages | Sort-Object order | Select-Object -Skip 1 -First 1
 $prodStage = $stages | Sort-Object order | Select-Object -Skip 2 -First 1
 
 Write-Step "Deploying Dev to Test"
+$testWs = $state.fabric.workspaces.test
+$testHasLakehouse = @(Get-FabricList -Path "/workspaces/$testWs/items?type=Lakehouse").Count -gt 0
+$devItems = @()
+foreach ($t in 'Notebook', 'DataPipeline', 'Dataflow') {
+    foreach ($i in (Get-FabricList -Path "/workspaces/$ws/items?type=$t")) { $devItems += @{ sourceItemId = $i.id; itemType = $t } }
+}
 $deployBody = @{
     sourceStageId = $devStage.id
     targetStageId = $testStage.id
     options       = @{ allowCreateArtifact = $true; allowOverwriteArtifact = $true }
+}
+if ($testHasLakehouse) {
+    # Re-deploy: send code items only. A warehouse that already exists in the target fails a repeat copy in
+    # the deployment pipeline (CopyOverwriteResult.GenericError). Apply warehouse DDL with scripts/05 instead.
+    $deployBody.items = $devItems
+    Write-Host "  selective deploy: notebooks, pipelines, dataflows"
+}
+else {
+    Write-Host "  first deploy: all items"
 }
 Invoke-FabricApi -Method POST -Path "/deploymentPipelines/$dpId/deploy" -Body $deployBody | Out-Null
 Write-Host "  Dev to Test deployed"
 
 if ($DeployToProd) {
     Write-Step "Deploying Test to Prod"
+    $prodWs = $state.fabric.workspaces.prod
+    $prodHasLakehouse = @(Get-FabricList -Path "/workspaces/$prodWs/items?type=Lakehouse").Count -gt 0
+    $testItems = @()
+    foreach ($t in 'Notebook', 'DataPipeline', 'Dataflow') {
+        foreach ($i in (Get-FabricList -Path "/workspaces/$testWs/items?type=$t")) { $testItems += @{ sourceItemId = $i.id; itemType = $t } }
+    }
     $prodBody = @{
         sourceStageId = $testStage.id
         targetStageId = $prodStage.id
         options       = @{ allowCreateArtifact = $true; allowOverwriteArtifact = $true }
     }
+    if ($prodHasLakehouse) { $prodBody.items = $testItems; Write-Host "  selective deploy: notebooks, pipelines, dataflows" }
+    else { Write-Host "  first deploy: all items" }
     Invoke-FabricApi -Method POST -Path "/deploymentPipelines/$dpId/deploy" -Body $prodBody | Out-Null
     Write-Host "  Test to Prod deployed"
 }
