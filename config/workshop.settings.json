@@ -17,19 +17,14 @@
     }
   },
   "storage": {
-    "accountName": "stfdwosfi2610",
-    "containers": ["landing", "bronze", "staging", "synapse-fs"]
+    "_comment": "Synapse default data lake only. Workshop data does not use this account (ADLS is blocked by policy in the sandbox).",
+    "accountName": "stfdwosfi2610"
   },
   "synapse": {
     "workspaceName": "syn-fdw-osfi-2610",
     "sqlPoolName": "dwpool",
     "sqlPoolServiceLevel": "DW100c",
     "sqlAdminLogin": "sqladminfdw"
-  },
-  "azureSql": {
-    "serverName": "sql-fdw-osfi-2610",
-    "databaseName": "sqldb-core-banking",
-    "serviceObjective": "GP_S_Gen5_1"
   },
   "git": {
     "owner": "nikosoukov",

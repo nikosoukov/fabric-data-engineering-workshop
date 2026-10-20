@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" font-family="Segoe UI, Arial, sans-serif">
+  <title>Medallion architecture with a Lakehouse and a Warehouse in Microsoft Fabric / Architecture Medallion avec un Lakehouse et un Warehouse dans Microsoft Fabric</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+    <marker id="arrowDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="620" fill="#FFFFFF"/>
+  <text x="550" y="34" text-anchor="middle" font-size="20" font-weight="600" fill="#111827">Medallion architecture: Lakehouse + Warehouse in Microsoft Fabric</text>
+  <text x="550" y="56" text-anchor="middle" font-size="14" fill="#4B5563">Architecture Medallion : Lakehouse + Warehouse dans Microsoft Fabric</text>
+
+  <!-- Sources -->
+  <rect x="30" y="90" width="210" height="110" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="135" y="116" text-anchor="middle" font-size="14" font-weight="600" fill="#111827">Synapse dedicated pool</text>
+  <text x="135" y="134" text-anchor="middle" font-size="12" fill="#374151">Legacy (migration source)</text>
+  <text x="135" y="152" text-anchor="middle" font-size="12" fill="#374151">Pool dédié Synapse (hérité)</text>
+  <text x="135" y="180" text-anchor="middle" font-size="11" fill="#6B7280">dwpool, DW100c, 100M rows</text>
+
+  <rect x="30" y="230" width="210" height="110" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="135" y="256" text-anchor="middle" font-size="14" font-weight="600" fill="#111827">Fabric SQL database</text>
+  <text x="135" y="274" text-anchor="middle" font-size="12" fill="#374151">Operational (mirrored)</text>
+  <text x="135" y="292" text-anchor="middle" font-size="12" fill="#374151">Opérationnelle (répliquée)</text>
+  <text x="135" y="320" text-anchor="middle" font-size="11" fill="#6B7280">sqldb_core_banking to OneLake</text>
+
+  <!-- Bronze -->
+  <rect x="300" y="90" width="250" height="250" rx="10" fill="#FDE8D7" stroke="#C2410C" stroke-width="1.5"/>
+  <text x="425" y="116" text-anchor="middle" font-size="15" font-weight="600" fill="#7C2D12">Bronze (raw / brut)</text>
+  <text x="425" y="134" text-anchor="middle" font-size="12" fill="#7C2D12">lh_bronze, Lakehouse (Delta)</text>
+  <text x="425" y="168" text-anchor="middle" font-size="12" fill="#1F2937">bronze.synapse_fact_transaction</text>
+  <text x="425" y="188" text-anchor="middle" font-size="12" fill="#1F2937">bronze.synapse_dim_customer / account</text>
+  <text x="425" y="208" text-anchor="middle" font-size="12" fill="#1F2937">bronze.synapse_dim_branch / date</text>
+  <text x="425" y="228" text-anchor="middle" font-size="12" fill="#1F2937">bronze.core_payments (shortcut)</text>
+  <text x="425" y="262" text-anchor="middle" font-size="11" fill="#7C2D12">As-is, append-friendly</text>
+  <text x="425" y="280" text-anchor="middle" font-size="11" fill="#7C2D12">Tel quel, historisé</text>
+
+  <!-- Silver -->
+  <rect x="600" y="90" width="250" height="250" rx="10" fill="#E5E7EB" stroke="#4B5563" stroke-width="1.5"/>
+  <text x="725" y="116" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">Silver (conformed / conforme)</text>
+  <text x="725" y="134" text-anchor="middle" font-size="12" fill="#111827">lh_silver, Lakehouse (Delta, Spark)</text>
+  <text x="725" y="168" text-anchor="middle" font-size="12" fill="#1F2937">silver.transactions (by year_month)</text>
+  <text x="725" y="188" text-anchor="middle" font-size="12" fill="#1F2937">silver.customers / accounts (MERGE)</text>
+  <text x="725" y="208" text-anchor="middle" font-size="12" fill="#1F2937">silver.payments (MERGE)</text>
+  <text x="725" y="228" text-anchor="middle" font-size="12" fill="#1F2937">silver.dq_results, dq_rejects</text>
+  <text x="725" y="262" text-anchor="middle" font-size="11" fill="#374151">Typed, de-duplicated, validated</text>
+  <text x="725" y="280" text-anchor="middle" font-size="11" fill="#374151">Typé, dédupliqué, validé</text>
+
+  <!-- Gold -->
+  <rect x="900" y="90" width="180" height="250" rx="10" fill="#FEF3C7" stroke="#B45309" stroke-width="1.5"/>
+  <text x="990" y="116" text-anchor="middle" font-size="15" font-weight="600" fill="#78350F">Gold (curated)</text>
+  <text x="990" y="134" text-anchor="middle" font-size="12" fill="#78350F">Gold (curé)</text>
+  <text x="990" y="160" text-anchor="middle" font-size="12" fill="#1F2937">wh_gold, Warehouse</text>
+  <text x="990" y="180" text-anchor="middle" font-size="12" fill="#1F2937">gold.dim_* (star schema)</text>
+  <text x="990" y="200" text-anchor="middle" font-size="12" fill="#1F2937">gold.fact_* (aggregates)</text>
+  <text x="990" y="220" text-anchor="middle" font-size="12" fill="#1F2937">gold.vw_* (reporting views)</text>
+  <text x="990" y="262" text-anchor="middle" font-size="11" fill="#78350F">T-SQL, BI, governed</text>
+  <text x="990" y="280" text-anchor="middle" font-size="11" fill="#78350F">T-SQL, BI, gouverné</text>
+
+  <!-- Migration target -->
+  <rect x="300" y="390" width="250" height="110" rx="10" fill="#E0F2FE" stroke="#0369A1" stroke-width="1.5"/>
+  <text x="425" y="416" text-anchor="middle" font-size="14" font-weight="600" fill="#0C4A6E">wh_migrated_synapse (Warehouse)</text>
+  <text x="425" y="434" text-anchor="middle" font-size="12" fill="#0C4A6E">Migrated star schema, T-SQL</text>
+  <text x="425" y="452" text-anchor="middle" font-size="12" fill="#0C4A6E">Schéma en étoile migré, T-SQL</text>
+  <text x="425" y="478" text-anchor="middle" font-size="11" fill="#075985">Control totals reconcile to source</text>
+
+  <!-- Consumers -->
+  <rect x="900" y="390" width="180" height="110" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="990" y="416" text-anchor="middle" font-size="14" font-weight="600" fill="#111827">Power BI, analysts</text>
+  <text x="990" y="434" text-anchor="middle" font-size="12" fill="#374151">Power BI, analystes</text>
+  <text x="990" y="456" text-anchor="middle" font-size="11" fill="#6B7280">Direct Lake or DirectQuery</text>
+
+  <!-- Flows -->
+  <line x1="240" y1="145" x2="300" y2="145" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="270" y="134" text-anchor="middle" font-size="10" fill="#374151">JDBC parallel</text>
+  <text x="270" y="158" text-anchor="middle" font-size="10" fill="#374151">lecture JDBC</text>
+
+  <line x1="240" y1="285" x2="300" y2="285" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="270" y="274" text-anchor="middle" font-size="10" fill="#374151">Mirror + shortcut</text>
+  <text x="270" y="298" text-anchor="middle" font-size="10" fill="#374151">miroir + raccourci</text>
+
+  <line x1="550" y1="200" x2="600" y2="200" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="575" y="186" text-anchor="middle" font-size="10" fill="#374151">Spark, DQ</text>
+  <text x="575" y="214" text-anchor="middle" font-size="10" fill="#374151">Spark, QD</text>
+
+  <line x1="850" y1="200" x2="900" y2="200" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="875" y="186" text-anchor="middle" font-size="10" fill="#374151">T-SQL cross-item</text>
+  <text x="875" y="214" text-anchor="middle" font-size="10" fill="#374151">inter-éléments</text>
+
+  <line x1="990" y1="340" x2="990" y2="390" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <line x1="425" y1="390" x2="425" y2="340" stroke="#0369A1" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="440" y="368" font-size="10" fill="#0369A1">JDBC bulk load / chargement</text>
+
+  <line x1="135" y1="340" x2="135" y2="400" stroke="#6B7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="146" y="372" font-size="10" fill="#6B7280">Synapse to Fabric</text>
+  <line x1="135" y1="400" x2="300" y2="445" stroke="#6B7280" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowDash)"/>
+
+  <!-- Orchestration and governance band -->
+  <rect x="30" y="530" width="1050" height="62" rx="10" fill="#EEF2FF" stroke="#4F46E5" stroke-width="1.2"/>
+  <text x="555" y="554" text-anchor="middle" font-size="13" fill="#312E81">Orchestration: pl_synapse_migration and pl_medallion_daily (Fabric pipelines, notebooks, dataflow)</text>
+  <text x="555" y="576" text-anchor="middle" font-size="12" fill="#3730A3">Orchestration : pipelines Fabric, notebooks et dataflow. Gouvernance : Entra ID, RBAC, Git, Dev, Test, Prod, capacité F4 au Canada</text>
+</svg>
