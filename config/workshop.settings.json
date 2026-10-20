@@ -1,0 +1,45 @@
+{
+  "_comment": "Non-secret settings shared by all scripts. Replace the subscriptionId and capacityAdmin values with your own before deploying to another tenant. No passwords or keys belong in this file.",
+  "subscriptionId": "982c0ed0-1285-4e91-b5f4-485b79de25e3",
+  "tenantId": "ac1c9a59-3e53-4771-a9c3-bfe388f15572",
+  "location": "canadacentral",
+  "resourceGroup": "rg-fabric-de-workshop",
+  "fabric": {
+    "capacityResourceGroup": "Fabric_Demos",
+    "capacityName": "fabricf4fdw01",
+    "capacitySku": "F4",
+    "capacityAdmin": "admin@MngEnvMCAP530541.onmicrosoft.com",
+    "workspaceSuffix": "OSFI-2610",
+    "workspaces": {
+      "dev": "FDW-Dev-OSFI-2610",
+      "test": "FDW-Test-OSFI-2610",
+      "prod": "FDW-Prod-OSFI-2610"
+    }
+  },
+  "storage": {
+    "accountName": "stfdwosfi2610",
+    "containers": ["landing", "bronze", "staging", "synapse-fs"]
+  },
+  "synapse": {
+    "workspaceName": "syn-fdw-osfi-2610",
+    "sqlPoolName": "dwpool",
+    "sqlPoolServiceLevel": "DW100c",
+    "sqlAdminLogin": "sqladminfdw"
+  },
+  "azureSql": {
+    "serverName": "sql-fdw-osfi-2610",
+    "databaseName": "sqldb-core-banking",
+    "serviceObjective": "GP_S_Gen5_1"
+  },
+  "git": {
+    "owner": "nikosoukov",
+    "repo": "fabric-data-engineering-workshop",
+    "branch": "main",
+    "folder": "/"
+  },
+  "data": {
+    "_comment": "Generation is deterministic (no random seed). The fact row count drives the bulk size. 100M rows is roughly 10 GB as CSV-equivalent. Dimensions are fixed at 200 branches, 50,000 customers, and 80,000 accounts in sql/synapse/02_generate_synthetic_data.sql.",
+    "factTransactionRows": 100000000,
+    "targetBulkSizeGB": 10
+  }
+}

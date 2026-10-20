@@ -1,0 +1,66 @@
+{
+  "properties": {
+    "description": "Medallion daily run. Bronze to Silver (Spark, Delta, DQ, MERGE), then Silver to Gold (T-SQL stored procedure in wh_gold).",
+    "activities": [
+      {
+        "name": "Refresh province reference (Dataflow Gen2)",
+        "type": "RefreshDataFlow",
+        "state": "Active",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.02:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "dataflowId": "__DATAFLOW_ID_df_province_reference__",
+          "workspaceId": "__WORKSPACE_ID__"
+        }
+      },
+      {
+        "name": "Bronze to Silver",
+        "type": "TridentNotebook",
+        "state": "Active",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "__NOTEBOOK_ID_nb_02_bronze_to_silver__",
+          "workspaceId": "__WORKSPACE_ID__"
+        }
+      },
+      {
+        "name": "Silver to Gold",
+        "type": "TridentNotebook",
+        "state": "Active",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Bronze to Silver",
+            "dependencyConditions": [ "Succeeded" ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "__NOTEBOOK_ID_nb_04_silver_to_gold_warehouse__",
+          "workspaceId": "__WORKSPACE_ID__"
+        }
+      }
+    ]
+  }
+}

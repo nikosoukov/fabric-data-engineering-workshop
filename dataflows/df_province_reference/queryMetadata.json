@@ -1,0 +1,13 @@
+{
+  "formatVersion": "202502",
+  "name": "df_province_reference",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "ref_province": {
+      "queryId": "6f1d2c9a-3b7e-4a51-9d0c-2e8f4b6a1c57",
+      "queryName": "ref_province",
+      "loadEnabled": true
+    }
+  }
+}

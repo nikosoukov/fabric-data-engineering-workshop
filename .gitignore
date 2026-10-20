@@ -1,0 +1,19 @@
+# Local state and generated output (never commit)
+.workshop-state/
+*.local.json
+*.secrets.json
+.env
+*.log
+__pycache__/
+.ipynb_checkpoints/
+
+# Downloaded or generated data
+data/generated/
+*.parquet
+*.csv.gz
+
+# Editor and OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
