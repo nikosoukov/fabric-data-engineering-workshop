@@ -86,7 +86,7 @@ notebooks/                 Fabric notebooks (.py, fabricGitSource format)
 pipelines/                 Pipeline definitions (JSON)
 dataflows/                 Dataflow Gen2 definitions (mashup.pq, queryMetadata.json)
 fabric-workspace/          Items exported by Fabric Git integration (Dev workspace)
-docs/                      Guide, best practices, Synapse equivalents, migration runbook, architecture
+docs/                      Guide, best practices, Synapse equivalents, migration runbook, architecture, slide deck (docs/presentation)
 diagrams/                  Architecture diagram (SVG, bilingual labels)
 ```
 
