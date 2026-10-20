@@ -1,0 +1,80 @@
+[
+  {
+    "name": "synapse_fact_transaction",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/synapse_fact_transaction",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  },
+  {
+    "name": "synapse_dim_date",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/synapse_dim_date",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  },
+  {
+    "name": "synapse_dim_customer",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/synapse_dim_customer",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  },
+  {
+    "name": "synapse_dim_branch",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/synapse_dim_branch",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  },
+  {
+    "name": "synapse_dim_account",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/synapse_dim_account",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  },
+  {
+    "name": "core_payments",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/bronze/core_payments",
+        "itemId": "773e221e-c033-9cc0-4f9b-16d133719262",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  }
+]

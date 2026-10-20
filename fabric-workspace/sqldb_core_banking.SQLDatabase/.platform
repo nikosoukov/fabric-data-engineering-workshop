@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SQLDatabase",
+    "displayName": "sqldb_core_banking"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f0db4583-6a83-898b-461d-28c95d81801b"
+  }
+}

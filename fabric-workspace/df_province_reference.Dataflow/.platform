@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "df_province_reference"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ee64d7d4-a9c4-ad9d-4d8d-c4de8a060ddb"
+  }
+}

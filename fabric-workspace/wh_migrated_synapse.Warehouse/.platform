@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Warehouse",
+    "displayName": "wh_migrated_synapse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "59aee49f-287b-88bc-4a77-584241a6fb0b"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "description": "Synapse dedicated SQL pool to Fabric migration. Extracts the legacy star schema into lh_bronze (Delta) and loads wh_migrated_synapse.",
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "c39e6368-cab7-8f04-4479-1da0097b8f01",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "load_mode": {
+              "value": "warehouse_only",
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Migrate Synapse to bronze and warehouse",
+        "state": "Active",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      }
+    ]
+  }
+}

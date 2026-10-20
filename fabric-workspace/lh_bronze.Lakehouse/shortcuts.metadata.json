@@ -1,0 +1,15 @@
+[
+  {
+    "name": "core_payments",
+    "path": "/Tables/bronze",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/core/payments",
+        "itemId": "f0db4583-6a83-898b-461d-28c95d81801b",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "SQLDbNative"
+      }
+    }
+  }
+]
